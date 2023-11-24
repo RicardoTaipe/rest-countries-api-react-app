@@ -52,7 +52,7 @@ function Dropdown() {
           return (
             <div
               key={index}
-              className={`hover:bg-gray-100 ${
+              className={`hover:bg-gray-100 cursor-pointer ${
                 index == indexSelected ? "font-bold" : ""
               }`}
               onClick={handleClick}
