@@ -23,7 +23,7 @@ function SearchInput() {
       <input
         type="text"
         name="search"
-        className="shadow-lg text-accent-1 placeholder:text-accent-2 text-sm rounded-lg block w-full py-2 md:py-6 px-16 md:px-20 md:text-base font-light bg-primary-1 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+        className="shadow-lg text-accent-1 placeholder:text-accent-2 text-xs rounded-lg block w-full py-4 px-16 md:px-20 md:text-sm font-light bg-primary-1 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
         placeholder="Search for a country..."
       />
     </div>

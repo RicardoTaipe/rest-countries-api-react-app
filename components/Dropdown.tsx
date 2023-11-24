@@ -1,13 +1,31 @@
-import React from "react";
+import { useState } from "react";
 
 function Dropdown() {
+  const options = ["Africa", "America", "Asia", "Europe", "Oceania"];
+  const [isOpen, setIsOpen] = useState(false);
+  const [indexSelected, setIndexSelected] = useState<number | null>(null);
+
+  function toggleOptions(event: React.MouseEvent<HTMLElement>) {
+    event.stopPropagation();
+    setIsOpen(!isOpen);
+  }
+
+  function handleClick(event: React.MouseEvent<HTMLElement>) {
+    event.stopPropagation();
+    setIsOpen(false);
+    setIndexSelected(
+      options.findIndex((option) => option === event.currentTarget.innerText)
+    );
+  }
+
   return (
-    <div>
+    <div className="max-w-[200px] text-sm relative flex-1">
       <button
-        className="text-accent-1 bg-primary-1 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-4 text-center inline-flex items-center justify-between"
+        onClick={toggleOptions}
+        className="text-accent-1 w-full bg-primary-1 hover:bg-gray-100 font-light rounded-lg px-6 py-4 text-center text-xs md:text-sm inline-flex items-center justify-between cursor-pointer shadow-md"
         type="button"
       >
-        <span>Filter by Region</span>
+        <span>{options[indexSelected!] ?? "Filter by Region"}</span>
         <svg
           className="w-2.5 h-2.5 ms-3"
           aria-hidden="true"
@@ -25,12 +43,24 @@ function Dropdown() {
         </svg>
       </button>
 
-      <div className="">
-        <div>Africa</div>
-        <div>America</div>
-        <div>Asia</div>
-        <div>Europe</div>
-        <div>Oceania</div>
+      <div
+        className={`absolute right-0 w-full mt-2 p-6 bg-primary-1 shadow-md rounded-lg text-xs md:text-sm space-y-1 transition-transform origin-top-right ${
+          isOpen ? "opacity-100 scale-1" : "opacity-20 scale-0"
+        }`}
+      >
+        {options.map((option, index) => {
+          return (
+            <div
+              key={index}
+              className={`hover:bg-gray-100 ${
+                index == indexSelected ? "font-bold" : ""
+              }`}
+              onClick={handleClick}
+            >
+              {option}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
