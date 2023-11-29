@@ -1,6 +1,11 @@
 import React from "react";
 
-function SearchInput() {
+interface props {
+  searchTerm: string;
+  onSearch: () => string;
+}
+
+function SearchInput({ searchTerm }: props) {
   return (
     <div className="relative md:w-[500px]">
       <div className="absolute inset-y-0 start-0 flex items-center ps-8 md:ps-8 pointer-events-none">
@@ -23,6 +28,7 @@ function SearchInput() {
       <input
         type="text"
         name="search"
+        value={searchTerm}
         className="shadow-lg text-accent-1 placeholder:text-accent-2 text-xs rounded-lg block w-full py-4 px-16 md:px-20 md:text-sm font-light bg-primary-1 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
         placeholder="Search for a country..."
       />
