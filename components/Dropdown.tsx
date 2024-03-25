@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export interface Option {
   label: string;
@@ -13,6 +13,22 @@ interface Props {
 
 function Dropdown({ options, onChange, value }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const divElement = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (event: Event) => {
+      if (!divElement.current || !event.target) {
+        return;
+      }
+      if (!divElement.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("click", handler, true);
+    return () => {
+      document.removeEventListener("click", handler);
+    };
+  }, []);
 
   const toggleOptions = () => {
     setIsOpen(!isOpen);
@@ -24,7 +40,10 @@ function Dropdown({ options, onChange, value }: Props) {
   };
 
   return (
-    <div className="max-w-[200px] text-sm relative flex-1 z-10">
+    <div
+      ref={divElement}
+      className="max-w-[200px] text-sm relative flex-1 z-10"
+    >
       <button
         onClick={toggleOptions}
         className="text-accent-1 w-full bg-primary-1 font-light rounded-lg px-6 py-4 text-center text-xs md:text-sm inline-flex items-center justify-between cursor-pointer shadow-md"
